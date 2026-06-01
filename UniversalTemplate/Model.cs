@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -48,10 +48,10 @@ namespace UniversalTemplate
             {
                 if (StockQuantity == 0)
                     return new
-                    SolidColorBrush((Color)ColorConverter.ConvertFromString("#ADD8E6"));
+                    SolidColorBrush((Color)ColorConverter.ConvertFromString("#808080"));
                 if (DiscountPercent > 15m)
                     return new
-                    SolidColorBrush((Color)ColorConverter.ConvertFromString("#2E8B57"));
+                    SolidColorBrush((Color)ColorConverter.ConvertFromString("#008080"));
                 return new
                 SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFFF"));
             }
