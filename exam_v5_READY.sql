@@ -139,6 +139,43 @@ INSERT INTO `orders` (`order_number`, `article_text`, `order_date`, `delivery_da
 (10, 'G432G6, 20, H542F5, 20', '2024-04-03', '2024-04-29', 19, 10, 910, 1);
 
 -- ============================================================
+-- СОСТАВ ЗАКАЗОВ (order_items, разобраны из article_text)
+-- Формат article_text: "Артикул, кол-во, Артикул2, кол-во2"
+-- А112Т4=1, G843H5=2, D325D4=3, S432T5=4, F325D4=5, G432G6=6, H542F5=7
+-- ============================================================
+INSERT INTO `order_items` (`order_id`, `product_id`, `quantity`) VALUES
+-- Заказ 1: А112Т4×2, G843H5×2
+(1, 1, 2),
+(1, 2, 2),
+-- Заказ 2: G843H5×1, А112Т4×1
+(2, 2, 1),
+(2, 1, 1),
+-- Заказ 3: D325D4×10, S432T5×10
+(3, 3, 10),
+(3, 4, 10),
+-- Заказ 4: F325D4×5, D325D4×4
+(4, 5, 5),
+(4, 3, 4),
+-- Заказ 5: G432G6×20, H542F5×20
+(5, 6, 20),
+(5, 7, 20),
+-- Заказ 6: А112Т4×2, G843H5×2
+(6, 1, 2),
+(6, 2, 2),
+-- Заказ 7: G843H5×1, А112Т4×1
+(7, 2, 1),
+(7, 1, 1),
+-- Заказ 8: D325D4×10, S432T5×10
+(8, 3, 10),
+(8, 4, 10),
+-- Заказ 9: F325D4×5, D325D4×4
+(9, 5, 5),
+(9, 3, 4),
+-- Заказ 10: G432G6×20, H542F5×20
+(10, 6, 20),
+(10, 7, 20);
+
+-- ============================================================
 -- ВНЕШНИЕ КЛЮЧИ
 -- ============================================================
 ALTER TABLE `users` ADD CONSTRAINT `fk_users_roles` FOREIGN KEY (`role_id`) REFERENCES `roles` (`role_id`) ON UPDATE CASCADE;
@@ -152,3 +189,4 @@ ALTER TABLE `order_items` ADD CONSTRAINT `fk_order_items_order` FOREIGN KEY (`or
 ALTER TABLE `order_items` ADD CONSTRAINT `fk_order_items_product` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON UPDATE CASCADE;
 
 COMMIT;
+
