@@ -180,16 +180,16 @@
     <Resource Include="resources\Icon.ico" />
     <Resource Include="resources\Icon.JPG" />
     <Resource Include="resources\Icon.png" />
-    <Resource Include="resources\photos\1.jpg" />
-    <Resource Include="resources\photos\10.jpg" />
-    <Resource Include="resources\photos\2.jpg" />
-    <Resource Include="resources\photos\3.jpg" />
-    <Resource Include="resources\photos\4.jpg" />
-    <Resource Include="resources\photos\5.jpg" />
-    <Resource Include="resources\photos\6.jpg" />
-    <Resource Include="resources\photos\7.jpg" />
-    <Resource Include="resources\photos\8.jpg" />
-    <Resource Include="resources\photos\9.jpg" />
+    <Resource Include="resources\photos\2G3280.jpg" />
+    <Resource Include="resources\photos\3L7RCZ.jpg" />
+    <Resource Include="resources\photos\BPV4MM.jpg" />
+    <Resource Include="resources\photos\F895RB.jpg" />
+    <Resource Include="resources\photos\JVL42J.jpg" />
+    <Resource Include="resources\photos\MIO8YV.jpg" />
+    <Resource Include="resources\photos\PMEZMH.jpg" />
+    <Resource Include="resources\photos\S72AM3.jpg" />
+    <Resource Include="resources\photos\UER2QD.jpg" />
+    <Resource Include="resources\photos\icon.jpg" />
     <Resource Include="resources\picture.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
