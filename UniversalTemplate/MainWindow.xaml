@@ -33,11 +33,18 @@
         <StackPanel x:Name="FilterPanel" Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,8">
             <TextBlock Text="Поиск:" VerticalAlignment="Center" Margin="0,0,6,0"/> 
             <TextBox x:Name="SearchTextBox" Width="320" Margin="0,0,16,0" TextChanged="SearchTextBox_TextChanged"/>
-            <TextBlock Text="Поставщик:" VerticalAlignment="Center" Margin="0,0,6,0"/>
-            <ComboBox x:Name="SupplierComboBox" Width="260" Margin="0,0,16,0" SelectionChanged="SupplierComboBox_SelectionChanged"/>
+            <TextBlock Text="Скидка:" VerticalAlignment="Center" Margin="0,0,6,0"/>
+            <ComboBox x:Name="DiscountComboBox" Width="150" Margin="0,0,16,0" SelectionChanged="DiscountComboBox_SelectionChanged">
+                <ComboBoxItem Content="Все диапазоны" IsSelected="True"/>
+                <ComboBoxItem Content="0-10,99%"/>
+                <ComboBoxItem Content="11-14,99%"/>
+                <ComboBoxItem Content="15% и более"/>
+            </ComboBox>
             <TextBlock Text="Сортировка:" VerticalAlignment="Center" Margin="0,0,6,0"/>
-            <ComboBox x:Name="SortComboBox" Width="250" SelectionChanged="SortComboBox_SelectionChanged">
+            <ComboBox x:Name="SortComboBox" Width="200" SelectionChanged="SortComboBox_SelectionChanged">
                 <ComboBoxItem Content="Без сортировки" IsSelected="True"/>
+                <ComboBoxItem Content="Цена (по возрастанию)"/>
+                <ComboBoxItem Content="Цена (по убыванию)"/>
                 <ComboBoxItem Content="Остаток (по возрастанию)"/>
                 <ComboBoxItem Content="Остаток (по убыванию)"/>
             </ComboBox>

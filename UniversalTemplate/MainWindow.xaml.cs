@@ -1,4 +1,4 @@
-﻿using UniversalTemplate;
+using UniversalTemplate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,8 +33,7 @@ namespace UniversalApp
            Visibility.Collapsed;
             AdminPanel.Visibility = IsAdmin() ? Visibility.Visible :
            Visibility.Collapsed;
-            if (advancedAllowed)
-                LoadSuppliersForFilter();
+
             _uiReady = true;
             LoadProducts();
         }
@@ -51,14 +50,7 @@ namespace UniversalApp
                MessageBoxImage.Error);
             }
         }
-        private void LoadSuppliersForFilter()
-        {
-            SupplierComboBox.Items.Clear();
-            SupplierComboBox.Items.Add("Все поставщики");
-            foreach (var s in DataService.GetSupplierNames())
-                SupplierComboBox.Items.Add(s);
-            SupplierComboBox.SelectedIndex = 0;
-        }
+
         private void ApplyFiltersAndSorting()
         {
             if (!_uiReady || ProductsGrid == null)
@@ -67,27 +59,36 @@ namespace UniversalApp
             if (IsManagerOrAdmin())
         {
                 var search = (SearchTextBox.Text ?? "").Trim().ToLowerInvariant();
-                var supplier = SupplierComboBox.SelectedItem?.ToString() ?? "Все поставщики"; var sort = (SortComboBox.SelectedItem as System.Windows.Controls.ComboBoxItem)?.Content?.ToString() ?? "Без сортировки";
-                if (supplier != "Все поставщики")
-                    query = query.Where(x => string.Equals(x.Supplier, supplier,
-                   StringComparison.OrdinalIgnoreCase));
+                var discountFilter = (DiscountComboBox.SelectedItem as System.Windows.Controls.ComboBoxItem)?.Content?.ToString() ?? "Все диапазоны";
+                var sort = (SortComboBox.SelectedItem as System.Windows.Controls.ComboBoxItem)?.Content?.ToString() ?? "Без сортировки";
+                
+                if (discountFilter == "0-10,99%")
+                    query = query.Where(x => x.DiscountPercent >= 0 && x.DiscountPercent < 11);
+                else if (discountFilter == "11-14,99%")
+                    query = query.Where(x => x.DiscountPercent >= 11 && x.DiscountPercent < 15);
+                else if (discountFilter == "15% и более")
+                    query = query.Where(x => x.DiscountPercent >= 15);
+                    
                 if (!string.IsNullOrWhiteSpace(search))
                 {
                     query = query.Where(x =>
                     (x.Article ?? "").ToLowerInvariant().Contains(search) ||
                     (x.Name ?? "").ToLowerInvariant().Contains(search) ||
                     (x.Category ?? "").ToLowerInvariant().Contains(search) ||
-                    (x.Description ?? "").ToLowerInvariant().Contains(search)
-                   ||
-                    (x.Manufacturer ??
-                   "").ToLowerInvariant().Contains(search) ||
+                    (x.Description ?? "").ToLowerInvariant().Contains(search) ||
+                    (x.Manufacturer ?? "").ToLowerInvariant().Contains(search) ||
                     (x.Supplier ?? "").ToLowerInvariant().Contains(search) ||
                     (x.UnitName ?? "").ToLowerInvariant().Contains(search));
                 }
+                
                 if (sort == "Остаток (по возрастанию)")
                     query = query.OrderBy(x => x.StockQuantity);
                 else if (sort == "Остаток (по убыванию)")
                     query = query.OrderByDescending(x => x.StockQuantity);
+                else if (sort == "Цена (по возрастанию)")
+                    query = query.OrderBy(x => x.FinalPrice);
+                else if (sort == "Цена (по убыванию)")
+                    query = query.OrderByDescending(x => x.FinalPrice);
             }
             ProductsGrid.ItemsSource = query.ToList();
         }
@@ -97,7 +98,7 @@ namespace UniversalApp
             if (!_uiReady) return;
             ApplyFiltersAndSorting();
         }
-        private void SupplierComboBox_SelectionChanged(object sender,
+        private void DiscountComboBox_SelectionChanged(object sender,
        System.Windows.Controls.SelectionChangedEventArgs e)
         {
             if (!_uiReady) return;
@@ -154,7 +155,7 @@ System.Windows.Controls.SelectionChangedEventArgs e)
             _openedEditor = null;
             if (result == true)
             {
-                LoadSuppliersForFilter();
+
                 LoadProducts();
             }
         }
@@ -189,7 +190,7 @@ System.Windows.Controls.SelectionChangedEventArgs e)
                     return;
                 }
                 DataService.DeleteProduct(selected.ProductId);
-            LoadSuppliersForFilter();
+
                 LoadProducts();
             }
             catch (Exception ex)
