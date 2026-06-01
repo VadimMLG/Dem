@@ -2,3 +2,4 @@
 bin/
 obj/
 *.user
+# packages/ - НЕ исключаем, чтобы MySql.Data был в репозитории
